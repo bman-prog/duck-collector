@@ -76,13 +76,18 @@ function setDifficulty () {
     }
 }
 info.onLifeZero(function () {
-    for (let index = 0; index <= 4; index++) {
-        if (info.score() >= list[index]) {
-            list.insertAt(index, info.score())
-            list.pop()
-            highScoreNames.insertAt(index, 0)
+    for (let index = 0; index <= highScoreNames.length - 1; index++) {
+        if (0 >= scores[index]) {
+            scores.insertAt(index, info.score())
+            scores.pop()
+            scores.insertAt(index, info.score())
+            game.splash(game.askForString("What is your name?"))
         }
     }
+    for (let index = 0; index <= [0].length - 1; index++) {
+        game.splash("" + index[0] + "" + index[index])
+    }
+    game.gameOver(false)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     sprites.destroy(otherSprite)
@@ -138,7 +143,7 @@ let duck: Sprite = null
 let berryCount = 0
 let difficulty = 0
 let highScoreNames: string[] = []
-let list: number[] = []
+let scores: number[] = []
 info.setScore(0)
 info.setLife(3)
 scene.setBackgroundImage(img`
@@ -264,7 +269,7 @@ scene.setBackgroundImage(img`
     9999999999999666666666666666666666666666667777777769999999999999999999999999999999999999999996666666666666666666666666666677777777699999999999999999999999999999
     `)
 let numOfHighScores = 3
-list = [0, 1]
+scores = [0, 1]
 highScoreNames = ["a", "b", "c"]
 spawnHero()
 difficulty = 3
